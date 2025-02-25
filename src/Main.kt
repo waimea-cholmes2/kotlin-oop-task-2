@@ -143,14 +143,16 @@ class Gnome(val name: String, var strength: Int) {
      *   NAME: dead!
      */
     fun info(): String {
-        return ""
+        return "$name: strength $strength, health $health"
     }
 
     /**
      * A gnome is alive if its health > zero
      */
     fun alive(): Boolean {
-        return false
+        if (health>0) {
+        return true }
+        else return false
     }
 
     /**
@@ -161,6 +163,8 @@ class Gnome(val name: String, var strength: Int) {
      */
     fun train(numHours: Int) {
         println("$name trains for $numHours hours...")
+        if (numHours >= 24 - strength*2) {strength = 10}
+        else strength = (strength + numHours/2)//.coerceAtMost(10) (might work idk just check)
 
 
     }
