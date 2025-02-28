@@ -143,7 +143,10 @@ class Gnome(val name: String, var strength: Int) {
      *   NAME: dead!
      */
     fun info(): String {
-        return "$name: strength $strength, health $health"
+        if(health > 0) {
+            return "$name: strength $strength, health $health"
+        }
+        else return "$name is dead!!!! AHHHHHHH"
     }
 
     /**
@@ -164,7 +167,7 @@ class Gnome(val name: String, var strength: Int) {
     fun train(numHours: Int) {
         println("$name trains for $numHours hours...")
         if (numHours >= 24 - strength*2) {strength = 10}
-        else strength = (strength + numHours/2)//.coerceAtMost(10) (might work idk just check)
+        else strength = (strength + numHours/2).coerceAtMost(10)
 
 
     }
@@ -179,7 +182,21 @@ class Gnome(val name: String, var strength: Int) {
     fun fight(opponent: Gnome) {
         println("$name vs ${opponent.name}...")
 
+        if(health>0 && opponent.health>0) {
+        health = (health - opponent.strength*5).coerceAtLeast(0)
+        opponent.health = (opponent.health-strength*5).coerceAtLeast(0)
+    }
+        if(health>0 && opponent.health==0) {
+            println("${opponent.name} is dead... Dun Dub DUn")
+        }
 
+        if(health==0 && opponent.health>0) {
+            println("$name is dead... Dun Dub DUn")
+        }
+
+        if(health==0 && opponent.health==0) {
+            println("${opponent.name} and $name are dead... Dun Dub DUn")
+        }
     }
 
 }
